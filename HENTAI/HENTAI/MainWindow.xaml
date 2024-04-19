@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HENTAI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="H.E.N.T.A.I." Height="450" Width="800">
      <Grid>
           <Grid.ColumnDefinitions>
                <ColumnDefinition Width="*"/>
@@ -25,7 +25,7 @@
                <Button Name="scheduleTask_button" Content="Install Task" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="scheduleTask_button_Click"/>
                <Button Name="removeTask_button" Content="Remove Task" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="removeTask_button_Click"/>
           </StackPanel>
-          <TextBox Name="DebugOutputTextbox" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Stretch" />
+          <TextBox Name="DebugOutputTextbox" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" />
 
      </Grid>
 </Window>

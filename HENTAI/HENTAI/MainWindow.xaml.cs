@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HENTAI.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,19 +27,19 @@ namespace HENTAI
                //read json file here
           }
 
-          private async void scheduleTask_button_Click(object sender, RoutedEventArgs e)
+          private void scheduleTask_button_Click(object sender, RoutedEventArgs e)
           {
-               await Task.Run(() => WindowsScheduler.ScheduleTask());
+               WindowsScheduler.ScheduleTask(this);
           }
 
-          private async void removeTask_button_Click(object sender, RoutedEventArgs e)
+          private void removeTask_button_Click(object sender, RoutedEventArgs e)
           {
-               await Task.Run(() => WindowsScheduler.RemoveTask());
+                WindowsScheduler.RemoveTask(this);
           }
 
-          public async Task AddDebugOutputLine(string outputLine)
+          public void AddDebugOutputLine(string outputLine)
           {
-
+               DebugOutputTextbox.AppendText($"[{DateTime.Now}] {outputLine}{Environment.NewLine}");
           }
      }
 }
