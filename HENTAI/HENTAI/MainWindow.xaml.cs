@@ -5,13 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HENTAI
 {
@@ -20,9 +14,31 @@ namespace HENTAI
      /// </summary>
      public partial class MainWindow : Window
      {
+          string app_config_filepath = @$"{Environment.CurrentDirectory}\Resources\app_config.json";
+
           public MainWindow()
           {
                InitializeComponent();
+          }
+
+          public async Task RefreshConfigs()
+          {
+               //read json file here
+          }
+
+          private async void scheduleTask_button_Click(object sender, RoutedEventArgs e)
+          {
+               await Task.Run(() => WindowsScheduler.ScheduleTask());
+          }
+
+          private async void removeTask_button_Click(object sender, RoutedEventArgs e)
+          {
+               await Task.Run(() => WindowsScheduler.RemoveTask());
+          }
+
+          public async Task AddDebugOutputLine(string outputLine)
+          {
+
           }
      }
 }

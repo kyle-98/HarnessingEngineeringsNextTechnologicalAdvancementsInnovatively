@@ -6,7 +6,26 @@
         xmlns:local="clr-namespace:HENTAI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+     <Grid>
+          <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="*"/>
+               <ColumnDefinition Width="5*"/>
+               <ColumnDefinition Width="5*"/>
+               <ColumnDefinition Width="5*"/>
+               <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+               <RowDefinition Height="*"/>
+               <RowDefinition Height="5*"/>
+               <RowDefinition Height="5*"/>
+               <RowDefinition Height="5*"/>
+               <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
+               <Button Name="scheduleTask_button" Content="Install Task" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="scheduleTask_button_Click"/>
+               <Button Name="removeTask_button" Content="Remove Task" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="removeTask_button_Click"/>
+          </StackPanel>
+          <TextBox Name="DebugOutputTextbox" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Stretch" />
 
-    </Grid>
+     </Grid>
 </Window>
