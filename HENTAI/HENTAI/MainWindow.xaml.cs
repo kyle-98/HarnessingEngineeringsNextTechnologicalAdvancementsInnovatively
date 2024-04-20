@@ -20,6 +20,20 @@ namespace HENTAI
           public MainWindow()
           {
                InitializeComponent();
+               if (Setup.CheckInstall(this)) 
+               {
+                    forcefetch_button.IsEnabled = true;
+                    install_button.IsEnabled = false; 
+                    uninstall_button.IsEnabled = true;
+                    AddDebugOutputLine("Installation valid");
+               }
+               else
+               {
+                    install_button.IsEnabled = true; 
+                    uninstall_button.IsEnabled = false;
+                    AddDebugOutputLine("Installation not valid");
+               }
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
 
           public async Task RefreshConfigs()
@@ -33,6 +47,17 @@ namespace HENTAI
                Setup.ScheduleTask(this);
                Setup.CreateLogFile(this);
                Setup.CreatePowershellScript(this);
+               if (Setup.CheckInstall(this))
+               {
+                    forcefetch_button.IsEnabled = true;
+                    install_button.IsEnabled = false;
+                    uninstall_button.IsEnabled = true;
+                    AddDebugOutputLine("Installation successful PogU's in the chat");
+               }
+               else { AddDebugOutputLine("Installation failed, try again"); }
+               
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+
           }
 
           private void uninstall_button_Click(object sender, RoutedEventArgs e)
@@ -40,12 +65,27 @@ namespace HENTAI
                Setup.RemoveTask(this);
                Setup.DeleteLogFile(this);
                Setup.DeletePowershellScript(this);
+               if (!Setup.CheckInstall(this))
+               {
+                    forcefetch_button.IsEnabled = false;
+                    uninstall_button.IsEnabled = false;
+                    install_button.IsEnabled = true;
+                    AddDebugOutputLine("Uninstallation successful");
+               }
+               else { AddDebugOutputLine("Uninstallation failed, try again"); }
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
 
           public void AddDebugOutputLine(string outputLine)
           {
                DebugOutputTextbox.AppendText($"[{DateTime.Now}] {outputLine}{Environment.NewLine}");
                DebugOutputTextbox.ScrollToEnd();
+          }
+
+
+          private void forcefetch_button_Click(object sender, RoutedEventArgs e)
+          {
+
           }
      }
 }

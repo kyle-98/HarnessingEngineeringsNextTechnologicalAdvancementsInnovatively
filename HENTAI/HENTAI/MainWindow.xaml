@@ -18,6 +18,13 @@
                          </ControlTemplate>
                     </Setter.Value>
                </Setter>
+               <Setter Property="Cursor" Value="Hand"/>
+               <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                         <Setter Property="Cursor" Value="No"/>
+                         <Setter Property="Opacity" Value="0.5"/>
+                    </Trigger>
+               </Style.Triggers>
           </Style>
      </Window.Resources>
      <Grid>
@@ -37,9 +44,19 @@
           </Grid.RowDefinitions>
           <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
                <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="install_button" Content="Install" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="install_button_Click" Foreground="#F7F7F7F7" Background="#43B581"/>
-               <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="uninstall_button" Content="Uninstall" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="uninstall_button_Click" Background="#F04747" Foreground="#F7F7F7F7"/>
+               <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="uninstall_button" Content="Uninstall" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="uninstall_button_Click" Background="#F04747" Foreground="#F7F7F7F7"/>
           </StackPanel>
-          <TextBox Name="DebugOutputTextbox" Cursor="No" Background="#313338" Foreground="#F7F7F7F7" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" />
+          <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,0">
+               <Button Style="{StaticResource RoundedButtons}" IsEnabled="False" Cursor="Hand" x:Name="forcefetch_button" Content="Force Fetch Data" Padding="10 5" Click="forcefetch_button_Click" Background="#4F545C" Foreground="#F7F7F7F7"/>
+          </StackPanel>
+          <RichTextBox Name="DebugOutputTextbox" Cursor="No" Background="#313338" Foreground="#F7F7F7F7" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" FontStretch="Condensed">
+               <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                         <Setter Property="Margin" Value="0"/>
+                         <Setter Property="Padding" Value="0"/>
+                    </Style>
+               </RichTextBox.Resources>
+          </RichTextBox>
 
      </Grid>
 </Window>

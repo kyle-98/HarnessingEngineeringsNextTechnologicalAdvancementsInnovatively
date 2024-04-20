@@ -152,18 +152,97 @@ namespace HENTAI.Resources
                else { MainWindow.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist"); }
           }
 
-          public static void CheckForResources(MainWindow MainWindow)
+          public static bool CheckForResources(MainWindow? MainWindow = null)
           {
                if (Directory.Exists($@"{Environment.CurrentDirectory}\Resources"))
                {
-                    MainWindow.AddDebugOutputLine("Resources directory exists");
+                    if(MainWindow != null) { MainWindow.AddDebugOutputLine("Resources directory exists"); }
+                    return true;
                }
                else
                {
-                    MainWindow.AddDebugOutputLine("Resources directory doesn't exist... creating");
-                    Directory.CreateDirectory($@"{Environment.CurrentDirectory}\Resources");
-                    MainWindow.AddDebugOutputLine("Resources directory created");
+                    if(MainWindow != null) { MainWindow.AddDebugOutputLine("Resources directory doesn't exist... creating"); }
+                    return false;
                }
+          }
+
+          public static void CreateResources(MainWindow MainWindow)
+          {
+               Directory.CreateDirectory($@"{Environment.CurrentDirectory}\Resources");
+               MainWindow.AddDebugOutputLine("Resources directory created");
+          }
+
+          public static bool CheckInstall(MainWindow MainWindow)
+          {
+               string curr_path = $@"{Environment.CurrentDirectory}\Resources";
+               bool is_installed = false;
+               MainWindow.AddDebugOutputLine("Validating installation status...");
+               if (CheckForResources()) 
+               { 
+                    MainWindow.AddDebugOutputLine("Resources directory exists");
+                    is_installed = true;
+
+                    //powershell script
+                    if (File.Exists($@"{curr_path}\fruitsnacks.ps1")) 
+                    { 
+                         MainWindow.AddDebugOutputLine("Powershell script exists");
+                         is_installed = true;
+                    }
+                    else
+                    {
+                         MainWindow.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist");
+                         is_installed = false;
+                    }
+
+                    //config file
+                    if (File.Exists($@"{curr_path}\app_config.json"))
+                    {
+                         MainWindow.AddDebugOutputLine("Config file exists");
+                         is_installed = true;
+                    }
+                    else
+                    {
+                         MainWindow.AddDebugOutputLine("WARNING >>> Config file doesn't exist");
+                         is_installed = false;
+                    }
+
+                    //Check task log file
+                    if (File.Exists($@"{curr_path}\task.log"))
+                    {
+                         MainWindow.AddDebugOutputLine("Task log file exists");
+                         is_installed = true;
+                    }
+                    else
+                    {
+                         MainWindow.AddDebugOutputLine("WARNING >>> Task log file doesn't exist. This isn't a fatal issue, installation still valid");
+                         is_installed = true;
+                    }
+               }
+               else 
+               { 
+                    MainWindow.AddDebugOutputLine("Resources directory missing. Please use install again to fix issues");
+                    is_installed = false;
+               }
+
+               //check scheduled task exists
+               string task_name = "HarnessingEngineeringsNextTechnologicalAdvancementsInnovatively";
+               using (TaskService this_service = new())
+               {
+                    Task task = this_service.GetTask(task_name);
+                    if (task != null)
+                    {
+                         MainWindow.AddDebugOutputLine("Task exists");
+                         is_installed = true;
+                    }
+                    else
+                    {
+                         MainWindow.AddDebugOutputLine("WARNING >>> Task doesn't exist");
+                         is_installed = false;
+                    }
+               }
+
+               return is_installed;
+
           }
      }
 }
