@@ -21,7 +21,7 @@ foreach($item in $folderitems | Select-Object -Property Subject, Start, Duration
     $meeting_list += $meeting
 }
 
-$meeting_list | Export-Csv -Path "$PWD\meetings.csv" -NoTypeInformation
+$meeting_list | Export-Csv -Path "$PWD\Resources\meetings.csv" -NoTypeInformation
 $outlook.quit()
 
 [System.Runtime.InteropServices.Marshal]::ReleaseComObject($calendar) | Out-Null

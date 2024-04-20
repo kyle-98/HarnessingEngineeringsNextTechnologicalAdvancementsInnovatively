@@ -5,7 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HENTAI"
         mc:Ignorable="d"
-        Title="H.E.N.T.A.I." Height="450" Width="800">
+        Title="H.E.N.T.A.I." Height="450" Width="800" Background="#232428">
+     <Window.Resources>
+          <Style x:Key="RoundedButtons" TargetType="Button">
+               <Setter Property="Template">
+                    <Setter.Value>
+                         <ControlTemplate TargetType="Button">
+                              <Border Background="{TemplateBinding Background}" Padding="10 5"
+                            CornerRadius="4">
+                                   <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                              </Border>
+                         </ControlTemplate>
+                    </Setter.Value>
+               </Setter>
+          </Style>
+     </Window.Resources>
      <Grid>
           <Grid.ColumnDefinitions>
                <ColumnDefinition Width="*"/>
@@ -22,10 +36,10 @@
                <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
           <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
-               <Button Name="install_button" Content="Install" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="scheduleTask_button_Click"/>
-               <Button Name="uninstall_button" Content="Uninstall" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="removeTask_button_Click"/>
+               <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="install_button" Content="Install" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="install_button_Click" Foreground="#F7F7F7F7" Background="#43B581"/>
+               <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="uninstall_button" Content="Uninstall" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="uninstall_button_Click" Background="#F04747" Foreground="#F7F7F7F7"/>
           </StackPanel>
-          <TextBox Name="DebugOutputTextbox" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" />
+          <TextBox Name="DebugOutputTextbox" Cursor="No" Background="#313338" Foreground="#F7F7F7F7" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" />
 
      </Grid>
 </Window>

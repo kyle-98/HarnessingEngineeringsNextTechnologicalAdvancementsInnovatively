@@ -29,17 +29,23 @@ namespace HENTAI
 
           private void install_button_Click(object sender, RoutedEventArgs e)
           {
+               Setup.CheckForResources(this);
                Setup.ScheduleTask(this);
+               Setup.CreateLogFile(this);
+               Setup.CreatePowershellScript(this);
           }
 
           private void uninstall_button_Click(object sender, RoutedEventArgs e)
           {
                Setup.RemoveTask(this);
+               Setup.DeleteLogFile(this);
+               Setup.DeletePowershellScript(this);
           }
 
           public void AddDebugOutputLine(string outputLine)
           {
                DebugOutputTextbox.AppendText($"[{DateTime.Now}] {outputLine}{Environment.NewLine}");
+               DebugOutputTextbox.ScrollToEnd();
           }
      }
 }

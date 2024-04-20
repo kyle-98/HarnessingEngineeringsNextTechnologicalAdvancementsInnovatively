@@ -21,7 +21,7 @@ namespace HENTAI.Resources
 
                     WeeklyTrigger weeklyTrigger = new WeeklyTrigger { StartBoundary = DateTime.Today.AddDays(1).AddHours(3) };
 
-                    string action_path = @$"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1";
+                    string action_path = @$"{Environment.CurrentDirectory}\Resources\Resources\fruitsnacks.ps1";
                     outlook_task.Actions.Add(action_path);
                     try
                     {
@@ -56,22 +56,22 @@ namespace HENTAI.Resources
 
           public static void CreateLogFile(MainWindow MainWindow)
           {
-               if (File.Exists(@$"{Environment.CurrentDirectory}\task.log"))
+               if (File.Exists(@$"{Environment.CurrentDirectory}\Resources\task.log"))
                {
                     MainWindow.AddDebugOutputLine("WARNING >>> Task log file already exists");
                }
                else
                {
-                    File.Create($@"{Environment.CurrentDirectory}\task.log").Dispose();
+                    File.Create($@"{Environment.CurrentDirectory}\Resources\task.log").Dispose();
                     MainWindow.AddDebugOutputLine("Task log file created");
                }
           }
 
           public static void DeleteLogFile(MainWindow MainWindow)
           {
-               if (File.Exists(@$"{Environment.CurrentDirectory}\task.log"))
+               if (File.Exists(@$"{Environment.CurrentDirectory}\Resources\task.log"))
                {
-                    File.Delete($@"{Environment.CurrentDirectory}\task.log");
+                    File.Delete($@"{Environment.CurrentDirectory}\Resources\task.log");
                     MainWindow.AddDebugOutputLine("Task log file deleted");
                }
                else { MainWindow.AddDebugOutputLine("WARNING >>> Task log file does not exist"); }
@@ -79,7 +79,7 @@ namespace HENTAI.Resources
 
           public static void CreatePowershellScript(MainWindow MainWindow)
           {
-               if (File.Exists($@"{Environment.CurrentDirectory}\fruitsnacks.ps1"))
+               if (File.Exists($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1"))
                {
                     MainWindow.AddDebugOutputLine("WARNING >>> Powershell script already exists");
                }
@@ -111,7 +111,7 @@ namespace HENTAI.Resources
                                    $meeting_list += $meeting
                               }
 
-                              $meeting_list | Export-Csv -Path ""$PWD\meetings.csv"" -NoTypeInformation
+                              $meeting_list | Export-Csv -Path ""$PWD\Resources\meetings.csv"" -NoTypeInformation
                               $outlook.quit()
 
                               [System.Runtime.InteropServices.Marshal]::ReleaseComObject($calendar) | Out-Null
@@ -128,9 +128,9 @@ namespace HENTAI.Resources
                                    ""[$curr_date] Log file missing, now created and task run"" | Out-File -FilePath ""$PWD\task.log"" -Append
                               }
                          ";
-                         File.Create($@"{Environment.CurrentDirectory}\fruitsnacks1.ps1").Dispose();
+                         File.Create($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1").Dispose();
                          MainWindow.AddDebugOutputLine("Powershell script created");
-                         File.WriteAllText($@"{Environment.CurrentDirectory}\fruitsnacks1.ps1", content);
+                         File.WriteAllText($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1", content);
                          MainWindow.AddDebugOutputLine("Powershell script populated");
 
                     }
@@ -144,12 +144,26 @@ namespace HENTAI.Resources
 
           public static void DeletePowershellScript(MainWindow MainWindow)
           {
-               if (File.Exists($@"{Environment.CurrentDirectory}\fruitsnacks.ps1"))
+               if (File.Exists($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1"))
                {
-                    File.Delete($@"{Environment.CurrentDirectory}\fruitsnacks1.ps1");
+                    File.Delete($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1");
                     MainWindow.AddDebugOutputLine("Powershell script deleted");
                }
                else { MainWindow.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist"); }
+          }
+
+          public static void CheckForResources(MainWindow MainWindow)
+          {
+               if (Directory.Exists($@"{Environment.CurrentDirectory}\Resources"))
+               {
+                    MainWindow.AddDebugOutputLine("Resources directory exists");
+               }
+               else
+               {
+                    MainWindow.AddDebugOutputLine("Resources directory doesn't exist... creating");
+                    Directory.CreateDirectory($@"{Environment.CurrentDirectory}\Resources");
+                    MainWindow.AddDebugOutputLine("Resources directory created");
+               }
           }
      }
 }
