@@ -57,7 +57,7 @@ namespace HENTAI
                     uninstall_button.IsEnabled = true;
                     AddColoredDebugOutputLine("Installation successful PogU's in the chat", Colors.LightGreen);
                }
-               else { AddColoredDebugOutputLine("Installation failed, try again", Colors.Red); }
+               else { AddColoredDebugOutputLine("Installation failed, try again", Colors.LightSalmon); }
                
                AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
 
@@ -75,7 +75,7 @@ namespace HENTAI
                     install_button.IsEnabled = true;
                     AddColoredDebugOutputLine("Uninstallation successful", Colors.LightGreen);
                }
-               else { AddColoredDebugOutputLine("Uninstallation failed, try again", Colors.Red); }
+               else { AddColoredDebugOutputLine("Uninstallation failed, try again", Colors.LightSalmon); }
                AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
 
@@ -87,7 +87,7 @@ namespace HENTAI
                DebugOutputTextbox.ScrollToEnd();
           }
 
-          private void AddColoredDebugOutputLine(string output_line, Color color)
+          public void AddColoredDebugOutputLine(string output_line, Color color)
           {
                Run run = new Run($"[{DateTime.Now}] {output_line}");
                run.Foreground = new SolidColorBrush(color);
@@ -99,26 +99,14 @@ namespace HENTAI
 
           private void forcefetch_button_Click(object sender, RoutedEventArgs e)
           {
-               string script_path = @$"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1";
-               ProcessStartInfo process_info = new ProcessStartInfo
-               {
-                    FileName = @"C:\Windows\System32\WindowsPowershell\v1.0\powershell.exe",
-                    Arguments = $"-ExecutionPolicy Bypass -File \"{script_path}\"",
-                    RedirectStandardOutput = false,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-               };
+               OutlookOperations.ForceFetch(this);
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+          }
 
-               using(Process process = new())
-               {
-                    process.StartInfo = process_info;
-                    process.Start();
-                    string errors = process.StandardError.ReadToEnd();
-                    process.WaitForExitAsync();
-                    if(errors != string.Empty) { AddColoredDebugOutputLine(errors, Colors.LightSalmon); }
-                    else { AddColoredDebugOutputLine("Outlook data fetched", Colors.LightGreen); }
-               }
+          private void killoutlook_button_Click(object sender, RoutedEventArgs e)
+          {
+               OutlookOperations.KillOutlook(this);
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
      }
 }
