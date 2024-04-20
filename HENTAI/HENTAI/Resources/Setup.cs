@@ -89,7 +89,7 @@ namespace HENTAI.Resources
                     {
                          string content = @"
                               Add-Type -AssemblyName ""Microsoft.Office.Interop.Outlook"" -ErrorAction Stop
-                              $olFolders = “Microsoft.Office.Interop.Outlook.OlDefaultFolders” -as [type]
+                              $olFolders = ""Microsoft.Office.Interop.Outlook.OlDefaultFolders"" -as [type]
                               $outlook = new-object -comobject outlook.application
                               $namespace = $outlook.GetNamespace(""MAPI"")
                               $calendar = $outlook.Session.GetDefaultFolder(9)

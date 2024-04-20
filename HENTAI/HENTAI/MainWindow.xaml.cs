@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Documents;
+using System.Diagnostics;
 
 namespace HENTAI
 {
@@ -98,7 +99,26 @@ namespace HENTAI
 
           private void forcefetch_button_Click(object sender, RoutedEventArgs e)
           {
+               string script_path = @$"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1";
+               ProcessStartInfo process_info = new ProcessStartInfo
+               {
+                    FileName = @"C:\Windows\System32\WindowsPowershell\v1.0\powershell.exe",
+                    Arguments = $"-ExecutionPolicy Bypass -File \"{script_path}\"",
+                    RedirectStandardOutput = false,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+               };
 
+               using(Process process = new())
+               {
+                    process.StartInfo = process_info;
+                    process.Start();
+                    string errors = process.StandardError.ReadToEnd();
+                    process.WaitForExitAsync();
+                    if(errors != string.Empty) { AddColoredDebugOutputLine(errors, Colors.LightSalmon); }
+                    else { AddColoredDebugOutputLine("Outlook data fetched", Colors.LightGreen); }
+               }
           }
      }
 }
