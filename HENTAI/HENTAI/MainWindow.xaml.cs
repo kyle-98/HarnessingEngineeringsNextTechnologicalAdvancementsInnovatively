@@ -27,14 +27,14 @@ namespace HENTAI
                //read json file here
           }
 
-          private void scheduleTask_button_Click(object sender, RoutedEventArgs e)
+          private void install_button_Click(object sender, RoutedEventArgs e)
           {
-               WindowsScheduler.ScheduleTask(this);
+               Setup.ScheduleTask(this);
           }
 
-          private void removeTask_button_Click(object sender, RoutedEventArgs e)
+          private void uninstall_button_Click(object sender, RoutedEventArgs e)
           {
-                WindowsScheduler.RemoveTask(this);
+               Setup.RemoveTask(this);
           }
 
           public void AddDebugOutputLine(string outputLine)

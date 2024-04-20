@@ -22,8 +22,8 @@
                <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
           <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
-               <Button Name="scheduleTask_button" Content="Install Task" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="scheduleTask_button_Click"/>
-               <Button Name="removeTask_button" Content="Remove Task" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="removeTask_button_Click"/>
+               <Button Name="install_button" Content="Install" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="scheduleTask_button_Click"/>
+               <Button Name="uninstall_button" Content="Uninstall" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="removeTask_button_Click"/>
           </StackPanel>
           <TextBox Name="DebugOutputTextbox" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" />
 
