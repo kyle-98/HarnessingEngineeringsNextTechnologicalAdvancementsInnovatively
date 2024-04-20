@@ -1,12 +1,14 @@
 ﻿using HENTAI.Resources;
 using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Documents;
 
 namespace HENTAI
 {
@@ -52,9 +54,9 @@ namespace HENTAI
                     forcefetch_button.IsEnabled = true;
                     install_button.IsEnabled = false;
                     uninstall_button.IsEnabled = true;
-                    AddDebugOutputLine("Installation successful PogU's in the chat");
+                    AddColoredDebugOutputLine("Installation successful PogU's in the chat", Colors.LightGreen);
                }
-               else { AddDebugOutputLine("Installation failed, try again"); }
+               else { AddColoredDebugOutputLine("Installation failed, try again", Colors.Red); }
                
                AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
 
@@ -70,15 +72,26 @@ namespace HENTAI
                     forcefetch_button.IsEnabled = false;
                     uninstall_button.IsEnabled = false;
                     install_button.IsEnabled = true;
-                    AddDebugOutputLine("Uninstallation successful");
+                    AddColoredDebugOutputLine("Uninstallation successful", Colors.LightGreen);
                }
-               else { AddDebugOutputLine("Uninstallation failed, try again"); }
+               else { AddColoredDebugOutputLine("Uninstallation failed, try again", Colors.Red); }
                AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
 
-          public void AddDebugOutputLine(string outputLine)
+          public void AddDebugOutputLine(string output_line)
           {
-               DebugOutputTextbox.AppendText($"[{DateTime.Now}] {outputLine}{Environment.NewLine}");
+               Color default_color = (Color)ColorConverter.ConvertFromString("#F7F7F7F7");
+               //DebugOutputTextbox.AppendText($"[{DateTime.Now}] {output_line}{Environment.NewLine}");
+               AddColoredDebugOutputLine(output_line, default_color);
+               DebugOutputTextbox.ScrollToEnd();
+          }
+
+          private void AddColoredDebugOutputLine(string output_line, Color color)
+          {
+               Run run = new Run($"[{DateTime.Now}] {output_line}");
+               run.Foreground = new SolidColorBrush(color);
+               FlowDocument fd = DebugOutputTextbox.Document;
+               fd.Blocks.Add(new Paragraph(run));
                DebugOutputTextbox.ScrollToEnd();
           }
 
