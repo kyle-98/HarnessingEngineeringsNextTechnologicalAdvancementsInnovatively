@@ -48,7 +48,8 @@
           </StackPanel>
           <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,0">
                <Button Style="{StaticResource RoundedButtons}" IsEnabled="False" Cursor="Hand" x:Name="forcefetch_button" Content="Force Fetch Data" Padding="10 5" Click="forcefetch_button_Click" Background="#4F545C" Foreground="#F7F7F7F7"/>
-               <Button Style="{StaticResource RoundedButtons}" Margin="0,15,0,0"  Cursor="Hand" x:Name="killoutlook_button" Content="Kill Outlook Processes" Padding="10 5" Click="killoutlook_button_Click" Background="#4F545C" Foreground="#F7F7F7F7"/>
+               <Button Style="{StaticResource RoundedButtons}" Margin="0,15,0,15"  Cursor="Hand" x:Name="killoutlook_button" Content="Kill Outlook Processes" Padding="10 5" Click="killoutlook_button_Click" Background="#4F545C" Foreground="#F7F7F7F7"/>
+               <Button Style="{StaticResource RoundedButtons}"  Cursor="Hand" x:Name="getcsvdata_button" Content="Get CSV Data" Padding="10 5" Background="#4F545C" Foreground="#F7F7F7F7" Click="getcsvdata_button_Click"/>
           </StackPanel>
           <RichTextBox Name="DebugOutputTextbox" Cursor="No" Background="#313338" Foreground="#F7F7F7F7" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" FontStretch="Condensed">
                <RichTextBox.Resources>

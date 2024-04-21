@@ -13,7 +13,7 @@ using System.Threading;
 
 public static class OutlookOperations
 {
-	public static void ForceFetch(MainWindow MainWindow)
+	public static void ForceFetch(MainWindow MW)
 	{
           string script_path = @$"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1";
           ProcessStartInfo process_info = new ProcessStartInfo
@@ -32,12 +32,12 @@ public static class OutlookOperations
                process.Start();
                string errors = process.StandardError.ReadToEnd();
                process.WaitForExitAsync();
-               if (errors != string.Empty) { MainWindow.AddColoredDebugOutputLine(errors, Colors.LightSalmon); }
-               else { MainWindow.AddColoredDebugOutputLine("Outlook data fetched", Colors.LightGreen); }
+               if (errors != string.Empty) { MW.AddColoredDebugOutputLine(errors, Colors.LightSalmon); }
+               else { MW.AddColoredDebugOutputLine("Outlook data fetched", Colors.LightGreen); }
           }
      }
 
-     public static void KillOutlook(MainWindow MainWindow)
+     public static void KillOutlook(MainWindow MW)
      {
           Process[] outlook_process = Process.GetProcessesByName("OUTLOOK");
           foreach(Process process in outlook_process)
@@ -47,11 +47,11 @@ public static class OutlookOperations
                     process.Kill();
                     process.WaitForExit();
                     process.Dispose();
-                    MainWindow.AddColoredDebugOutputLine($"Process: {process} forcefully killed", Colors.LightGreen);
+                    MW.AddColoredDebugOutputLine($"Process: {process} forcefully killed", Colors.LightGreen);
                }
                catch (Exception ex)
                {
-                    MainWindow.AddColoredDebugOutputLine($"{process} failed to be killed: {ex.Message}", Colors.LightSalmon);
+                    MW.AddColoredDebugOutputLine($"{process} failed to be killed: {ex.Message}", Colors.LightSalmon);
                }
           }
      }

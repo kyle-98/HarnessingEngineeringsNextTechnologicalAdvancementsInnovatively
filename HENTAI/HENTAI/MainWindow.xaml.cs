@@ -108,5 +108,10 @@ namespace HENTAI
                OutlookOperations.KillOutlook(this);
                AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
+
+          private void getcsvdata_button_Click(object sender, RoutedEventArgs e)
+          {
+               ExcelTasks.GetCSVData(this);
+          }
      }
 }

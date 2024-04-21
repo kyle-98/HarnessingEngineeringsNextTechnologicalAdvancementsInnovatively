@@ -11,7 +11,7 @@ namespace HENTAI.Resources
 {
      public static class Setup
      {
-          public static void ScheduleTask(MainWindow MainWindow)
+          public static void ScheduleTask(MainWindow MW)
           {
                using (TaskService this_service = new())
                {
@@ -26,17 +26,17 @@ namespace HENTAI.Resources
                     try
                     {
                          this_service.RootFolder.RegisterTaskDefinition(@"HarnessingEngineeringsNextTechnologicalAdvancementsInnovatively", outlook_task);
-                         MainWindow.AddDebugOutputLine("Successfully added task");
+                         MW.AddDebugOutputLine("Successfully added task");
                     }
                     catch (Exception ex)
                     {
-                         MainWindow.AddDebugOutputLine("ERROR >>> Failed to add task");
-                         MainWindow.AddDebugOutputLine($"ERROR >>> {ex.Message}");
+                         MW.AddDebugOutputLine("ERROR >>> Failed to add task");
+                         MW.AddDebugOutputLine($"ERROR >>> {ex.Message}");
                     }
                }
           }
 
-          public static void RemoveTask(MainWindow MainWindow)
+          public static void RemoveTask(MainWindow MW)
           {
                string task_name = "HarnessingEngineeringsNextTechnologicalAdvancementsInnovatively";
                using (TaskService this_service = new())
@@ -45,43 +45,43 @@ namespace HENTAI.Resources
                     if (task != null)
                     {
                          this_service.RootFolder.DeleteTask(task_name);
-                         MainWindow.AddDebugOutputLine("Successfully deleted task");
+                         MW.AddDebugOutputLine("Successfully deleted task");
                     }
                     else
                     {
-                         MainWindow.AddDebugOutputLine("WARNING >>> Failed to delete task, no task by that name was found");
+                         MW.AddDebugOutputLine("WARNING >>> Failed to delete task, no task by that name was found");
                     }
                }
           }
 
-          public static void CreateLogFile(MainWindow MainWindow)
+          public static void CreateLogFile(MainWindow MW)
           {
                if (File.Exists(@$"{Environment.CurrentDirectory}\Resources\task.log"))
                {
-                    MainWindow.AddDebugOutputLine("WARNING >>> Task log file already exists");
+                    MW.AddDebugOutputLine("WARNING >>> Task log file already exists");
                }
                else
                {
                     File.Create($@"{Environment.CurrentDirectory}\Resources\task.log").Dispose();
-                    MainWindow.AddDebugOutputLine("Task log file created");
+                    MW.AddDebugOutputLine("Task log file created");
                }
           }
 
-          public static void DeleteLogFile(MainWindow MainWindow)
+          public static void DeleteLogFile(MainWindow MW)
           {
                if (File.Exists(@$"{Environment.CurrentDirectory}\Resources\task.log"))
                {
                     File.Delete($@"{Environment.CurrentDirectory}\Resources\task.log");
-                    MainWindow.AddDebugOutputLine("Task log file deleted");
+                    MW.AddDebugOutputLine("Task log file deleted");
                }
-               else { MainWindow.AddDebugOutputLine("WARNING >>> Task log file does not exist"); }
+               else { MW.AddDebugOutputLine("WARNING >>> Task log file does not exist"); }
           }
 
-          public static void CreatePowershellScript(MainWindow MainWindow)
+          public static void CreatePowershellScript(MainWindow MW)
           {
                if (File.Exists($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1"))
                {
-                    MainWindow.AddDebugOutputLine("WARNING >>> Powershell script already exists");
+                    MW.AddDebugOutputLine("WARNING >>> Powershell script already exists");
                }
                else
                {
@@ -129,98 +129,98 @@ namespace HENTAI.Resources
                               }
                          ";
                          File.Create($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1").Dispose();
-                         MainWindow.AddDebugOutputLine("Powershell script created");
+                         MW.AddDebugOutputLine("Powershell script created");
                          File.WriteAllText($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1", content);
-                         MainWindow.AddDebugOutputLine("Powershell script populated");
+                         MW.AddDebugOutputLine("Powershell script populated");
 
                     }
                     catch (Exception ex)
                     {
-                         MainWindow.AddDebugOutputLine("ERROR >>> Powershell script creation encountered an error");
-                         MainWindow.AddDebugOutputLine($"ERROR >>> {ex.Message}");
+                         MW.AddDebugOutputLine("ERROR >>> Powershell script creation encountered an error");
+                         MW.AddDebugOutputLine($"ERROR >>> {ex.Message}");
                     }
                }
           }
 
-          public static void DeletePowershellScript(MainWindow MainWindow)
+          public static void DeletePowershellScript(MainWindow MW)
           {
                if (File.Exists($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1"))
                {
                     File.Delete($@"{Environment.CurrentDirectory}\Resources\fruitsnacks.ps1");
-                    MainWindow.AddDebugOutputLine("Powershell script deleted");
+                    MW.AddDebugOutputLine("Powershell script deleted");
                }
-               else { MainWindow.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist"); }
+               else { MW.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist"); }
           }
 
-          public static bool CheckForResources(MainWindow? MainWindow = null)
+          public static bool CheckForResources(MainWindow? MW = null)
           {
                if (Directory.Exists($@"{Environment.CurrentDirectory}\Resources"))
                {
-                    if(MainWindow != null) { MainWindow.AddDebugOutputLine("Resources directory exists"); }
+                    if(MW != null) { MW.AddDebugOutputLine("Resources directory exists"); }
                     return true;
                }
                else
                {
-                    if(MainWindow != null) { MainWindow.AddDebugOutputLine("Resources directory doesn't exist... creating"); }
+                    if(MW != null) { MW.AddDebugOutputLine("Resources directory doesn't exist... creating"); }
                     return false;
                }
           }
 
-          public static void CreateResources(MainWindow MainWindow)
+          public static void CreateResources(MainWindow MW)
           {
                Directory.CreateDirectory($@"{Environment.CurrentDirectory}\Resources");
-               MainWindow.AddDebugOutputLine("Resources directory created");
+               MW.AddDebugOutputLine("Resources directory created");
           }
 
-          public static bool CheckInstall(MainWindow MainWindow)
+          public static bool CheckInstall(MainWindow MW)
           {
                string curr_path = $@"{Environment.CurrentDirectory}\Resources";
                bool is_installed = false;
-               MainWindow.AddDebugOutputLine("Validating installation status...");
+               MW.AddDebugOutputLine("Validating installation status...");
                if (CheckForResources()) 
                { 
-                    MainWindow.AddDebugOutputLine("Resources directory exists");
+                    MW.AddDebugOutputLine("Resources directory exists");
                     is_installed = true;
 
                     //powershell script
                     if (File.Exists($@"{curr_path}\fruitsnacks.ps1")) 
                     { 
-                         MainWindow.AddDebugOutputLine("Powershell script exists");
+                         MW.AddDebugOutputLine("Powershell script exists");
                          is_installed = true;
                     }
                     else
                     {
-                         MainWindow.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist");
+                         MW.AddDebugOutputLine("WARNING >>> Powershell script doesn't exist");
                          is_installed = false;
                     }
 
                     //config file
                     if (File.Exists($@"{curr_path}\app_config.json"))
                     {
-                         MainWindow.AddDebugOutputLine("Config file exists");
+                         MW.AddDebugOutputLine("Config file exists");
                          is_installed = true;
                     }
                     else
                     {
-                         MainWindow.AddDebugOutputLine("WARNING >>> Config file doesn't exist");
+                         MW.AddDebugOutputLine("WARNING >>> Config file doesn't exist");
                          is_installed = false;
                     }
 
                     //Check task log file
                     if (File.Exists($@"{curr_path}\task.log"))
                     {
-                         MainWindow.AddDebugOutputLine("Task log file exists");
+                         MW.AddDebugOutputLine("Task log file exists");
                          is_installed = true;
                     }
                     else
                     {
-                         MainWindow.AddDebugOutputLine("WARNING >>> Task log file doesn't exist. This isn't a fatal issue, installation still valid");
+                         MW.AddDebugOutputLine("WARNING >>> Task log file doesn't exist. This isn't a fatal issue, installation still valid");
                          is_installed = true;
                     }
                }
                else 
                { 
-                    MainWindow.AddDebugOutputLine("Resources directory missing. Please use install again to fix issues");
+                    MW.AddDebugOutputLine("Resources directory missing. Please use install again to fix issues");
                     is_installed = false;
                }
 
@@ -231,12 +231,12 @@ namespace HENTAI.Resources
                     Task task = this_service.GetTask(task_name);
                     if (task != null)
                     {
-                         MainWindow.AddDebugOutputLine("Task exists");
+                         MW.AddDebugOutputLine("Task exists");
                          is_installed = true;
                     }
                     else
                     {
-                         MainWindow.AddDebugOutputLine("WARNING >>> Task doesn't exist");
+                         MW.AddDebugOutputLine("WARNING >>> Task doesn't exist");
                          is_installed = false;
                     }
                }
