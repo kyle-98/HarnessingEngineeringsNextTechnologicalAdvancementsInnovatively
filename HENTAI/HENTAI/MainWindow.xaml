@@ -5,7 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HENTAI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="H.E.N.T.A.I." Height="450" Width="800" Background="#232428">
+     <Window.Resources>
+          <Style x:Key="RoundedButtons" TargetType="Button">
+               <Setter Property="Template">
+                    <Setter.Value>
+                         <ControlTemplate TargetType="Button">
+                              <Border Background="{TemplateBinding Background}" Padding="10 5"
+                            CornerRadius="4">
+                                   <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                              </Border>
+                         </ControlTemplate>
+                    </Setter.Value>
+               </Setter>
+               <Setter Property="Cursor" Value="Hand"/>
+               <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                         <Setter Property="Cursor" Value="No"/>
+                         <Setter Property="Opacity" Value="0.5"/>
+                    </Trigger>
+               </Style.Triggers>
+          </Style>
+     </Window.Resources>
      <Grid>
           <Grid.ColumnDefinitions>
                <ColumnDefinition Width="*"/>
@@ -22,10 +43,21 @@
                <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
           <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
-               <Button Name="scheduleTask_button" Content="Install Task" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="scheduleTask_button_Click"/>
-               <Button Name="removeTask_button" Content="Remove Task" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="10 5" VerticalAlignment="Top" Click="removeTask_button_Click"/>
+               <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="install_button" Content="Install" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="install_button_Click" Foreground="#F7F7F7F7" Background="#43B581"/>
+               <Button Style="{StaticResource RoundedButtons}" Cursor="Hand" Name="uninstall_button" Content="Uninstall" HorizontalAlignment="Left" Margin="0,0,0,10" Padding="10 5" VerticalAlignment="Top" Click="uninstall_button_Click" Background="#F04747" Foreground="#F7F7F7F7"/>
           </StackPanel>
-          <TextBox Name="DebugOutputTextbox" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Stretch" />
+          <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,0">
+               <Button Style="{StaticResource RoundedButtons}" IsEnabled="False" Cursor="Hand" x:Name="forcefetch_button" Content="Force Fetch Data" Padding="10 5" Click="forcefetch_button_Click" Background="#4F545C" Foreground="#F7F7F7F7"/>
+               <Button Style="{StaticResource RoundedButtons}" Margin="0,15,0,0"  Cursor="Hand" x:Name="killoutlook_button" Content="Kill Outlook Processes" Padding="10 5" Click="killoutlook_button_Click" Background="#4F545C" Foreground="#F7F7F7F7"/>
+          </StackPanel>
+          <RichTextBox Name="DebugOutputTextbox" Cursor="No" Background="#313338" Foreground="#F7F7F7F7" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" IsReadOnly="True" IsUndoEnabled="False" FontFamily="Cascadia Mono Light" FontStretch="Condensed">
+               <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                         <Setter Property="Margin" Value="0"/>
+                         <Setter Property="Padding" Value="0"/>
+                    </Style>
+               </RichTextBox.Resources>
+          </RichTextBox>
 
      </Grid>
 </Window>

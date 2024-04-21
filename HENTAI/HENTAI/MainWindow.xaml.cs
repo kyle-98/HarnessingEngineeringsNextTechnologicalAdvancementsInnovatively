@@ -1,11 +1,15 @@
-﻿using System;
+﻿using HENTAI.Resources;
+using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Documents;
+using System.Diagnostics;
 
 namespace HENTAI
 {
@@ -19,6 +23,20 @@ namespace HENTAI
           public MainWindow()
           {
                InitializeComponent();
+               if (Setup.CheckInstall(this)) 
+               {
+                    forcefetch_button.IsEnabled = true;
+                    install_button.IsEnabled = false; 
+                    uninstall_button.IsEnabled = true;
+                    AddDebugOutputLine("Installation valid");
+               }
+               else
+               {
+                    install_button.IsEnabled = true; 
+                    uninstall_button.IsEnabled = false;
+                    AddDebugOutputLine("Installation not valid");
+               }
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
 
           public async Task RefreshConfigs()
@@ -26,19 +44,69 @@ namespace HENTAI
                //read json file here
           }
 
-          private async void scheduleTask_button_Click(object sender, RoutedEventArgs e)
+          private void install_button_Click(object sender, RoutedEventArgs e)
           {
-               await Task.Run(() => WindowsScheduler.ScheduleTask());
+               Setup.CheckForResources(this);
+               Setup.ScheduleTask(this);
+               Setup.CreateLogFile(this);
+               Setup.CreatePowershellScript(this);
+               if (Setup.CheckInstall(this))
+               {
+                    forcefetch_button.IsEnabled = true;
+                    install_button.IsEnabled = false;
+                    uninstall_button.IsEnabled = true;
+                    AddColoredDebugOutputLine("Installation successful PogU's in the chat", Colors.LightGreen);
+               }
+               else { AddColoredDebugOutputLine("Installation failed, try again", Colors.LightSalmon); }
+               
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+
           }
 
-          private async void removeTask_button_Click(object sender, RoutedEventArgs e)
+          private void uninstall_button_Click(object sender, RoutedEventArgs e)
           {
-               await Task.Run(() => WindowsScheduler.RemoveTask());
+               Setup.RemoveTask(this);
+               Setup.DeleteLogFile(this);
+               Setup.DeletePowershellScript(this);
+               if (!Setup.CheckInstall(this))
+               {
+                    forcefetch_button.IsEnabled = false;
+                    uninstall_button.IsEnabled = false;
+                    install_button.IsEnabled = true;
+                    AddColoredDebugOutputLine("Uninstallation successful", Colors.LightGreen);
+               }
+               else { AddColoredDebugOutputLine("Uninstallation failed, try again", Colors.LightSalmon); }
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
 
-          public async Task AddDebugOutputLine(string outputLine)
+          public void AddDebugOutputLine(string output_line)
           {
+               Color default_color = (Color)ColorConverter.ConvertFromString("#F7F7F7F7");
+               //DebugOutputTextbox.AppendText($"[{DateTime.Now}] {output_line}{Environment.NewLine}");
+               AddColoredDebugOutputLine(output_line, default_color);
+               DebugOutputTextbox.ScrollToEnd();
+          }
 
+          public void AddColoredDebugOutputLine(string output_line, Color color)
+          {
+               Run run = new Run($"[{DateTime.Now}] {output_line}");
+               run.Foreground = new SolidColorBrush(color);
+               FlowDocument fd = DebugOutputTextbox.Document;
+               fd.Blocks.Add(new Paragraph(run));
+               DebugOutputTextbox.ScrollToEnd();
+          }
+
+
+          private void forcefetch_button_Click(object sender, RoutedEventArgs e)
+          {
+               OutlookOperations.ForceFetch(this);
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
+          }
+
+          private void killoutlook_button_Click(object sender, RoutedEventArgs e)
+          {
+               OutlookOperations.KillOutlook(this);
+               AddDebugOutputLine("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-");
           }
      }
 }
